@@ -11,10 +11,16 @@
 <div>Subject of message: <b>{{subject}}</b></div>
 <div>Message: <b>{{text}}</b></div>
 
-<a href="/previous">Previous day</a>
-<a href="/next">Next day</a>
+<!--<a href="/previous">Previous day</a>-->
+<!--<a href="/next">Next day</a>-->
 
+<!--<div>-->
+    <!--<form method="get" action="/previous">-->
+        <!--<button type="submit">Предыдущий</button>-->
+    <!--</form>-->
+<!--</div>-->
 
+<a href="/previous?date={{date}}">Previous day</a>
 <!--<a href="/previous?name={{name}}&date={{date}}&subject={{subject}}&text={{text}}">Previous day</a>-->
 <!--<a href="/next?name={{name}}&date={{date}}&subject={{subject}}&text={{text}}">Next day</a>-->
 

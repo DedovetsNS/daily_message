@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -22,19 +24,29 @@ public class DateService {
         return formatter.parse(stringDate);
     }
 
+//    public Date getPreviousDay(Date date){
+//        GregorianCalendar calendar = new GregorianCalendar();
+//        calendar.setGregorianChange(date);
+//        calendar.add(Calendar.DATE, -1);
+//        return calendar.getTime();
+//    }
+
     public Date getPreviousDay(Date date){
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setGregorianChange(date);
-        calendar.add(Calendar.DATE, -1);
-        return calendar.getTime();
+        final Instant previous = date.toInstant().minus(1, ChronoUnit.DAYS);
+        return Date.from(previous);
     }
 
     public Date getNextDay(Date date){
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setGregorianChange(date);
-        calendar.add(Calendar.DATE, +1);
-        return calendar.getTime();
+        final Instant previous = date.toInstant().plus(1, ChronoUnit.DAYS);
+        return Date.from(previous);
     }
+
+//    public Date getNextDay(Date date){
+//        GregorianCalendar calendar = new GregorianCalendar();
+//        calendar.setGregorianChange(date);
+//        calendar.add(Calendar.DATE, +1);
+//        return calendar.getTime();
+//    }
 
     public Date getStartOfDay(Date date) {
         GregorianCalendar calendar = new GregorianCalendar();
