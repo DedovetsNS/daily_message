@@ -1,5 +1,5 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Daily message</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -20,9 +20,13 @@
     <!--</form>-->
 <!--</div>-->
 
-<a href="/previous?date={{date}}">Previous day</a>
-<!--<a href="/previous?name={{name}}&date={{date}}&subject={{subject}}&text={{text}}">Previous day</a>-->
-<!--<a href="/next?name={{name}}&date={{date}}&subject={{subject}}&text={{text}}">Next day</a>-->
+<a href="/previous?stringDate={{date}}">Previous day</a>
+<a href="/next?stringDate={{date}}">Next day </a>
+
+<form action="/logout" method="post">
+    <input type="submit" value="Sign Out"/>
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+</form>
 
 </body>
 </html>

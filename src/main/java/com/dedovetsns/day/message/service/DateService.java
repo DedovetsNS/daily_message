@@ -19,9 +19,14 @@ public class DateService {
         return formatter.format(date);
     }
 
-    public Date parseDate(String stringDate) throws ParseException {
+    public Date parseDate(String stringDate)  {
         DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-        return formatter.parse(stringDate);
+        try {
+            return formatter.parse(stringDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return new Date(0);
     }
 
 //    public Date getPreviousDay(Date date){
@@ -31,12 +36,12 @@ public class DateService {
 //        return calendar.getTime();
 //    }
 
-    public Date getPreviousDay(Date date){
+    public Date getPreviousDay(Date date) {
         final Instant previous = date.toInstant().minus(1, ChronoUnit.DAYS);
         return Date.from(previous);
     }
 
-    public Date getNextDay(Date date){
+    public Date getNextDay(Date date) {
         final Instant previous = date.toInstant().plus(1, ChronoUnit.DAYS);
         return Date.from(previous);
     }
@@ -66,5 +71,10 @@ public class DateService {
         calendar.set(Calendar.SECOND, 59);
         calendar.set(Calendar.MILLISECOND, 999);
         return calendar.getTime();
+    }
+
+    public Date getSixDaysAgo(Date today) {
+        final Instant previous = today.toInstant().minus(6, ChronoUnit.DAYS);
+        return Date.from(previous);
     }
 }
