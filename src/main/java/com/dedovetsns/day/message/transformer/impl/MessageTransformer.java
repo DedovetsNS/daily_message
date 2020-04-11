@@ -31,6 +31,9 @@ public class MessageTransformer implements Transformer<Message, MessageDto> {
         return new MessageDto(entity.getId(),
                             entity.getSubject(),
                             entity.getText(),
-                            dateService.getFormattedDate(entity.getDate()));
+                            dateService.getFormattedDate(entity.getDate()),
+                null,
+                null);
+
     }
 }

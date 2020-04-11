@@ -14,6 +14,8 @@ public class MessageDto implements Comparable {
     private String subject;
     private String text;
     private String date;
+    private Long countAllVisit;
+    private Long countUniqueVisit;
 
     @Override
     public int compareTo(Object o) {

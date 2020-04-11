@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class DayStatisticDto {
     Long countAllVisit;
     Long countUniqueVisit;
+
 }

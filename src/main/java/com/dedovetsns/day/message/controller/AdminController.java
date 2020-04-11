@@ -1,9 +1,9 @@
 package com.dedovetsns.day.message.controller;
 
 import com.dedovetsns.day.message.dto.MessageDto;
-import com.dedovetsns.day.message.model.Message;
 import com.dedovetsns.day.message.service.DateService;
 import com.dedovetsns.day.message.service.MessageService;
+import com.dedovetsns.day.message.service.StatisticService;
 import com.dedovetsns.day.message.transformer.impl.MessageTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,9 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Map;
-import java.util.Set;
 import java.util.SortedSet;
-import java.util.TreeSet;
 
 @Controller
 public class AdminController {
@@ -22,12 +20,14 @@ public class AdminController {
     private final MessageService messageService;
     private final DateService dateService;
     private final MessageTransformer messageTransformer;
+    private final StatisticService statisticService;
 
     @Autowired
-    public AdminController(MessageService messageService, DateService dateService, MessageTransformer messageTransformer) {
+    public AdminController(MessageService messageService, DateService dateService, MessageTransformer messageTransformer, StatisticService statisticService) {
         this.messageService = messageService;
         this.dateService = dateService;
         this.messageTransformer = messageTransformer;
+        this.statisticService = statisticService;
     }
 
     @GetMapping("admin")
@@ -36,6 +36,7 @@ public class AdminController {
         model.put("name", user.getUsername());
 
         SortedSet<MessageDto> messages = messageService.getMessagesDtoForLastWeek();
+        messages = statisticService.addStatisticInMessages(messages);
         model.put("messages", messages);
 
 
