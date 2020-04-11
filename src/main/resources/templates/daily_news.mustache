@@ -2,26 +2,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Daily message</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 
 <body>
-<div>Hello, <b>{{name}}</b></div>
-<div>News for <b>{{date}}</b></div>
-<div>Subject of message: <b>{{subject}}</b></div>
-<div>Message: <b>{{text}}</b></div>
+<h3>
+    <div>Здравствуйте, {{name}}</div>
+    <div>Новость за {{date}}</div>
+    <div>Тема: {{subject}}</div>
+    <div>Текст: {{text}}</div>
+</h3>
 
-<!--<a href="/previous">Previous day</a>-->
-<!--<a href="/next">Next day</a>-->
 
-<!--<div>-->
-    <!--<form method="get" action="/previous">-->
-        <!--<button type="submit">Предыдущий</button>-->
-    <!--</form>-->
-<!--</div>-->
-
-<a href="/previous?stringDate={{date}}">Previous day</a>
-<a href="/next?stringDate={{date}}">Next day </a>
+<a href="/previous?stringDate={{date}}">Предыдущий день</a>
+<a href="/next?stringDate={{date}}">Следующий день </a>
 
 <form action="/logout" method="post">
     <input type="submit" value="Sign Out"/>

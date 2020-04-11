@@ -41,10 +41,47 @@ public class MessageService {
         return messageRepository.getMessagesByDateBetween(sevenDaysAgo, today);
     }
 
+    public Set<Message> getMessagesForPeriod(Date from, Date to) {
+        return messageRepository.getMessagesByDateBetween(from, to);
+    }
+
     public SortedSet<MessageDto> getMessagesDtoForLastWeek() {
         Set<MessageDto> messagesDto = messageTransformer.toDto(getMessagesForLastWeek());
         SortedSet<MessageDto> sortedMessagesDto = new TreeSet<>(messagesDto);
         return sortedMessagesDto;
     }
 
+    public SortedSet<MessageDto> getMessagesDtoForPeriod(Date from, Date to) {
+        Set<MessageDto> messagesDto = messageTransformer.toDto(getMessagesForPeriod(from,to));
+        SortedSet<MessageDto> sortedMessagesDto = new TreeSet<>(messagesDto);
+        return sortedMessagesDto;
+    }
+
+    public String addOrUpdateMessage(Date date, String subject, String text) {
+      Message message = messageRepository.getByDateBetween(dateService.getStartOfDay(date),dateService.getEndOfDay(date));
+      if(message==null){
+          message = new Message(date,subject,text);
+          messageRepository.save(message);
+          return "Сообщение было добавлено";
+      }
+      else {
+          message.setSubject(subject);
+          message.setText(text);
+          messageRepository.save(message);
+          return "Сообщение было изменено";
+      }
+    }
+
+    public boolean checkByDate(Date date) {
+        return messageRepository.existsByDateBetween(dateService.getStartOfDay(date),dateService.getEndOfDay(date));
+    }
+
+    public void addRandomMessage(Date date) {
+       List<Message> messages = (List<Message>) messageRepository.findAll();
+        Random rnd = new Random(System.currentTimeMillis());
+        int index = rnd.nextInt(messages.size()-1);
+        Optional<Message> message= messageRepository.findById(messages.get(index).getId());
+        Message newMessage = new Message(date,message.get().getSubject(),message.get().getText());
+        messageRepository.save(newMessage);
+    }
 }

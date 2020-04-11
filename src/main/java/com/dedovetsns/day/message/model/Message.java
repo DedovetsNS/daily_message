@@ -24,7 +24,13 @@ public class Message implements Serializable, Comparable {
 
     @Override
     public int compareTo(Object o) {
-       Message message = (Message) o;
-        return  message.getDate().compareTo(this.getDate());
+        Message message = (Message) o;
+        return message.getDate().compareTo(this.getDate());
+    }
+
+    public Message(Date date, String subject, String text) {
+        this.subject = subject;
+        this.text = text;
+        this.date = date;
     }
 }

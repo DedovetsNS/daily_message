@@ -1,36 +1,72 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Daily message</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Admin page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .colortext {
+            color: #ce1400;
+        }
+    </style>
 </head>
 
 <body>
+<h3>
+    <div>Здравствуйте, {{name}}[ADMIN]</div>
+    <div>Новости за период с {{dateFrom}} по {{dateTo}}</div>
+</h3>
 
-<div>Hello, <b>{{name}}[ADMIN]</b></div>
-<div><h3>News for last 7 days:</h3></div>
-
+<h3 class="colortext">
+{{#reminder}}
+    {{reminder}}
+{{/reminder}}
+</h3>
 
 {{#messages}}
     <div>
-        <b>Дата:{{date}}</b>
+        <b>Дата: {{date}}</b>
         <br>
-        <span>Тема:{{subject}}</span>
+        <span>Тема: {{subject}}</span>
         <br>
-        <i>Текст:{{text}}</i>
+        <i>Текст: {{text}}</i>
         <br>
-        <span>Общее количество посещений:{{countAllVisit}}</span>
+        <span>Общее количество посещений: {{countAllVisit}}</span>
         <br>
-        <span>Количество уникальных поситителей:{{countUniqueVisit}}</span>
+        <span>Количество уникальных поситителей: {{countUniqueVisit}}</span>
         <br><br>
     </div>
 {{/messages}}
 
 
+<form action="/admin" method="post">
+    <h3> Получение подробной статистики</h3>
+    1)Период за который вывести новости<br>
+    2)Период за который учитывать статистику<br>
+    <div><label>Новости от:<input type="date" name="newsDateFrom"/> </label></div>
+    <div><label>Новости до:<input type="date" name="newsDateTo"/> </label></div>
+    <div><label>Статистика от:<input type="date" name="statisticDateFrom"/> </label></div>
+    <div><label>Статистика до:<input type="date" name="statisticDateTo"/> </label></div>
+    <div><input type="submit" value="Запросить"/></div>
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+</form>
+<br>
 
+
+<form action="/edit_message" method="post">
+    <h3> Изменение/добавление новости: </h3>
+    <div><label>Дата:<input type="date" name="date"/> </label></div>
+    <div><label>Тема:<input type="text" name="subject"/> </label></div>
+    <div><label>Текст:<input type="text" name="text"/> </label></div>
+    <div><input type="submit" value="Изменить/добавить"/></div>
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+</form>
+{{#info}}
+    {{info}}
+{{/info}}
+<br>
 
 <form action="/logout" method="post">
-    <input type="submit" value="Sign Out"/>
+    <input type="submit" value="Выйти"/>
     <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
 </form>
 

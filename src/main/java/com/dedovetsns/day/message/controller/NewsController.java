@@ -47,10 +47,15 @@ public class NewsController {
             date = dateService.parseDate(stringDate);
         }
         model.put("date", date);
-        model = messageService.getMessage(model);
+
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.put("name", user.getUsername());
 
+        if(!messageService.checkByDate(date)){
+            model.put("info",dateService.getFormattedDate(date)+" Новость за эту дату еще не добавлена или была удалена");
+            return "info";
+        }
+        model = messageService.getMessage(model);
         visitService.addVisit(model);
         return "daily_news";
     }

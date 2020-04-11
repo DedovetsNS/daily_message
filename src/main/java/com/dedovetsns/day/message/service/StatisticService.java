@@ -51,6 +51,10 @@ public class StatisticService {
         return addStatisticInMessages(messages,new Date(0),new Date());
         }
 
+    public SortedSet<MessageDto> addStatisticInMessagesForPeriod(SortedSet<MessageDto> messages, Date from, Date to) {
+        return addStatisticInMessages(messages,from,to);
+    }
+
 
     public SortedSet<MessageDto> addStatisticInMessages(SortedSet<MessageDto> messages, Date from, Date to) {
         for (MessageDto message : messages) {

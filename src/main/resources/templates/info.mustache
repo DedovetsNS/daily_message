@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Daily message</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+<div><h3>Информация:
+
+{{#info}}
+    {{info}}
+{{/info}}
+
+</h3></div>
+
+<form action="/admin" method="get">
+    <input type="submit" value="Страница Администратора"/>
+</form>
+
+<form action="/daily_news" method="get">
+    <input type="submit" value="Ежедневные новости"/>
+</form>
+
+<form action="/logout" method="post">
+    <input type="submit" value="Выйти"/>
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+</form>
+
+</body>
+</html>

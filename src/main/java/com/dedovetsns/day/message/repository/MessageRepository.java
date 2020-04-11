@@ -13,4 +13,7 @@ public interface MessageRepository extends CrudRepository<Message, Long> {
     Message getByDateBetween(Date from, Date to);
 
     Set<Message> getMessagesByDateBetween(Date from, Date to);
+
+    boolean existsByDateBetween(Date from, Date to);
+
 }
