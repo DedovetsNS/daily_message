@@ -53,25 +53,30 @@ public class NewsController {
     public String todayMessage(@RequestParam(required = false) String stringDate,
                                @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date newsDate,
                                Map<String, Object> model) {
-        if (newsDate != null) {
-            String add = dateService.getFormattedDate(newsDate);
-            return "redirect:daily_news?stringDate=" + add;
-        }
         Date date;
         if (stringDate == null) {
             date = new Date();
         } else {
             date = dateService.parseDate(stringDate);
         }
+
+        if (dateService.getStartOfDay(date).after(new Date())) {
+            model.put("info", dateService.getFormattedDate(date) + " Новость будет доступна "+ dateService.getFormattedDate(date));
+            return "info";
+        } else if (!messageService.checkByDate(date)) {
+            model.put("info", dateService.getFormattedDate(date) + " Новость за эту дату еще не добавлена или была удалена");
+            return "info";
+        }
+
+        if (newsDate != null) {
+            String add = dateService.getFormattedDate(newsDate);
+            return "redirect:daily_news?stringDate=" + add;
+        }
         model.put("date", date);
 
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.put("name", user.getUsername());
 
-        if (!messageService.checkByDate(date)) {
-            model.put("info", dateService.getFormattedDate(date) + " Новость за эту дату еще не добавлена или была удалена");
-            return "info";
-        }
         model = messageService.getMessage(model);
         visitService.addVisit(model);
         return "daily_news";

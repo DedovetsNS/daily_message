@@ -39,7 +39,7 @@ public class DateService {
         return Date.from(previous);
     }
 
-    Date getStartOfDay(Date date) {
+   public Date getStartOfDay(Date date) {
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
