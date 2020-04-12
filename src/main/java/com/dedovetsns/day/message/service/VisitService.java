@@ -26,6 +26,4 @@ public class VisitService {
         Date date = new Date();
         visitRepository.save(new Visit(userId, messageId, date));
     }
-
-
 }

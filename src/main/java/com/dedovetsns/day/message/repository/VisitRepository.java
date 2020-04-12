@@ -21,5 +21,4 @@ public interface VisitRepository extends CrudRepository<Visit, Long> {
     Long countUniqueVisitBetweenDates(@Param("messageId") String messageId,
                                       @Param("dateFrom") Date dateFrom,
                                       @Param("dateTo") Date dateTo);
-
 }

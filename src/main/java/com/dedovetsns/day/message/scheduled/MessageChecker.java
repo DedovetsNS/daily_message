@@ -15,9 +15,8 @@ public class MessageChecker {
         this.messageService = messageService;
     }
 
-
     @Scheduled(cron = "0 0 0 ? * *")
-    private void checkTomorrowMessage() {
+    private void assignTomorrowMessage() {
         if (!messageService.checkByDate(new Date())) {
             messageService.addRandomMessage(new Date());
         }

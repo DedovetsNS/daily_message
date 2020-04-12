@@ -8,7 +8,6 @@ public interface Transformer<E, D> {
 
     D toDto(E entity);
 
-
     default Set<E> toEntity(Set<D> dtos) {
         return dtos.stream().map(this::toEntity).collect(Collectors.toSet());
     }

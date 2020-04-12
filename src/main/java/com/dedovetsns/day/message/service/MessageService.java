@@ -31,57 +31,54 @@ public class MessageService {
         model.put("subject", message.getSubject());
         model.put("text", message.getText());
         model.put("date", dateService.getFormattedDate(dateFrom));
-        model.put("messageId",message.getId());
+        model.put("messageId", message.getId());
         return model;
     }
 
-    public Set<Message> getMessagesForLastWeek() {
+    private Set<Message> getMessagesForLastWeek() {
         Date today = new Date();
         Date sevenDaysAgo = dateService.getSixDaysAgo(today);
         return messageRepository.getMessagesByDateBetween(sevenDaysAgo, today);
     }
 
-    public Set<Message> getMessagesForPeriod(Date from, Date to) {
+    private Set<Message> getMessagesForPeriod(Date from, Date to) {
         return messageRepository.getMessagesByDateBetween(from, to);
     }
 
     public SortedSet<MessageDto> getMessagesDtoForLastWeek() {
         Set<MessageDto> messagesDto = messageTransformer.toDto(getMessagesForLastWeek());
-        SortedSet<MessageDto> sortedMessagesDto = new TreeSet<>(messagesDto);
-        return sortedMessagesDto;
+        return new TreeSet<>(messagesDto);
     }
 
     public SortedSet<MessageDto> getMessagesDtoForPeriod(Date from, Date to) {
-        Set<MessageDto> messagesDto = messageTransformer.toDto(getMessagesForPeriod(from,to));
-        SortedSet<MessageDto> sortedMessagesDto = new TreeSet<>(messagesDto);
-        return sortedMessagesDto;
+        Set<MessageDto> messagesDto = messageTransformer.toDto(getMessagesForPeriod(from, to));
+        return new TreeSet<>(messagesDto);
     }
 
     public String addOrUpdateMessage(Date date, String subject, String text) {
-      Message message = messageRepository.getByDateBetween(dateService.getStartOfDay(date),dateService.getEndOfDay(date));
-      if(message==null){
-          message = new Message(date,subject,text);
-          messageRepository.save(message);
-          return "Сообщение было добавлено";
-      }
-      else {
-          message.setSubject(subject);
-          message.setText(text);
-          messageRepository.save(message);
-          return "Сообщение было изменено";
-      }
+        Message message = messageRepository.getByDateBetween(dateService.getStartOfDay(date), dateService.getEndOfDay(date));
+        if (message == null) {
+            message = new Message(date, subject, text);
+            messageRepository.save(message);
+            return "Сообщение было добавлено";
+        } else {
+            message.setSubject(subject);
+            message.setText(text);
+            messageRepository.save(message);
+            return "Сообщение было изменено";
+        }
     }
 
     public boolean checkByDate(Date date) {
-        return messageRepository.existsByDateBetween(dateService.getStartOfDay(date),dateService.getEndOfDay(date));
+        return messageRepository.existsByDateBetween(dateService.getStartOfDay(date), dateService.getEndOfDay(date));
     }
 
     public void addRandomMessage(Date date) {
-       List<Message> messages = (List<Message>) messageRepository.findAll();
+        List<Message> messages = (List<Message>) messageRepository.findAll();
         Random rnd = new Random(System.currentTimeMillis());
-        int index = rnd.nextInt(messages.size()-1);
-        Optional<Message> message= messageRepository.findById(messages.get(index).getId());
-        Message newMessage = new Message(date,message.get().getSubject(),message.get().getText());
+        int index = rnd.nextInt(messages.size() - 1);
+        Optional<Message> message = messageRepository.findById(messages.get(index).getId());
+        Message newMessage = new Message(date, message.get().getSubject(), message.get().getText());
         messageRepository.save(newMessage);
     }
 }

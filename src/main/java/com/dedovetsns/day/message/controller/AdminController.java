@@ -41,10 +41,9 @@ public class AdminController {
         model.put("messages", messages);
         model.put("dateFrom", dateService.getFormattedDate(dateService.getSixDaysAgo(new Date())));
         model.put("dateTo", dateService.getFormattedDate(new Date()));
-        if (!messageService.checkByDate(dateService.getNextDay(new Date()))){
-            model.put("reminder","Новость на завтра не создана! Требуется создать или будет создана автоматически.");
+        if (!messageService.checkByDate(dateService.getNextDay(new Date()))) {
+            model.put("reminder", "Новость на завтра не создана! Требуется создать используя форму ниже или в 00:00 будет выбрана случайная из базы.");
         }
-
         return "admin_panel";
     }
 
@@ -63,10 +62,9 @@ public class AdminController {
         model.put("dateFrom", dateService.getFormattedDate(newsDateFrom));
         model.put("dateTo", dateService.getFormattedDate(newsDateTo));
 
-        if (!messageService.checkByDate(dateService.getNextDay(new Date()))){
-            model.put("reminder","Новость на завтра не создана! Требуется создать используя форму ниже или будет создана автоматически.");
+        if (!messageService.checkByDate(dateService.getNextDay(new Date()))) {
+            model.put("reminder", "Новость на завтра не создана! Требуется создать используя форму ниже или в 00:00 будет выбрана случайная из базы.");
         }
-
         return "admin_panel";
     }
 
@@ -83,4 +81,11 @@ public class AdminController {
         return "info";
     }
 
+    @PostMapping("random_for_tomorrow")
+    public String randomForTomorrow() {
+        if (!messageService.checkByDate(dateService.getNextDay(new Date()))){
+            messageService.addRandomMessage(dateService.getNextDay(new Date()));
+        }
+        return "redirect:admin";
+    }
 }

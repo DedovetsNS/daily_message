@@ -9,19 +9,20 @@
         }
     </style>
 </head>
-
 <body>
 <h3>
     <div>Здравствуйте, {{name}}[ADMIN]</div>
     <div>Новости за период с {{dateFrom}} по {{dateTo}}</div>
 </h3>
-
 <h3 class="colortext">
-{{#reminder}}
-    {{reminder}}
-{{/reminder}}
+    {{#reminder}}
+        {{reminder}}
+        <form action="/random_for_tomorrow" method="post">
+            <div><input type="submit" value="Назначить случайную из базы"/></div>
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+        </form>
+    {{/reminder}}
 </h3>
-
 {{#messages}}
     <div>
         <b>Дата: {{date}}</b>
@@ -36,8 +37,6 @@
         <br><br>
     </div>
 {{/messages}}
-
-
 <form action="/admin" method="post">
     <h3> Получение подробной статистики</h3>
     1)Период за который вывести новости<br>
@@ -50,8 +49,6 @@
     <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
 </form>
 <br>
-
-
 <form action="/edit_message" method="post">
     <h3> Изменение/добавление новости: </h3>
     <div><label>Дата:<input type="date" name="date"/> </label></div>
@@ -64,7 +61,6 @@
     {{info}}
 {{/info}}
 <br>
-
 <form action="/logout" method="post">
     <input type="submit" value="Выйти"/>
     <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>

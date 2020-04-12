@@ -11,14 +11,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VisitDto implements Serializable {
-
     private Long id;
-
     private String userId;
-
     private String pageId;
-
     private Date date;
-
-
 }

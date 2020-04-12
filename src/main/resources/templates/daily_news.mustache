@@ -4,7 +4,6 @@
     <title>Daily message</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
-
 <body>
 <h3>
     <div>Здравствуйте, {{name}}</div>
@@ -12,15 +11,17 @@
     <div>Тема: {{subject}}</div>
     <div>Текст: {{text}}</div>
 </h3>
-
-
 <a href="/previous?stringDate={{date}}">Предыдущий день</a>
 <a href="/next?stringDate={{date}}">Следующий день </a>
-
+<form action="/daily_news" method="get">
+    <h3>Новость по дате</h3>
+    <div><label>Дата:<input type="date" name="newsDate"/> </label></div>
+    <div><input type="submit" value="Запросить"/></div>
+</form>
+<br>
 <form action="/logout" method="post">
     <input type="submit" value="Выйти"/>
     <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
 </form>
-
 </body>
 </html>

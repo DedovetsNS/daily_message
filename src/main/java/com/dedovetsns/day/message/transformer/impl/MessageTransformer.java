@@ -7,8 +7,6 @@ import com.dedovetsns.day.message.transformer.Transformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.text.ParseException;
-
 @Component
 public class MessageTransformer implements Transformer<Message, MessageDto> {
     private final DateService dateService;
@@ -19,21 +17,20 @@ public class MessageTransformer implements Transformer<Message, MessageDto> {
     }
 
     @Override
-    public Message toEntity(MessageDto dto){
+    public Message toEntity(MessageDto dto) {
         return new Message(dto.getId(),
-                           dto.getSubject(),
-                            dto.getText(),
-                            dateService.parseDate(dto.getDate()));
+                dto.getSubject(),
+                dto.getText(),
+                dateService.parseDate(dto.getDate()));
     }
 
     @Override
     public MessageDto toDto(Message entity) {
         return new MessageDto(entity.getId(),
-                            entity.getSubject(),
-                            entity.getText(),
-                            dateService.getFormattedDate(entity.getDate()),
+                entity.getSubject(),
+                entity.getText(),
+                dateService.getFormattedDate(entity.getDate()),
                 null,
                 null);
-
     }
 }

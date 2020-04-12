@@ -14,7 +14,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public String getUserIdByName(String name){
+    String getUserIdByName(String name) {
         return String.valueOf(userRepository.findByUsername(name).getId());
     }
 }

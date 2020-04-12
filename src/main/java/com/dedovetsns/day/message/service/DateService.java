@@ -19,7 +19,7 @@ public class DateService {
         return formatter.format(date);
     }
 
-    public Date parseDate(String stringDate)  {
+    public Date parseDate(String stringDate) {
         DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
         try {
             return formatter.parse(stringDate);
@@ -28,13 +28,6 @@ public class DateService {
         }
         return new Date(0);
     }
-
-//    public Date getPreviousDay(Date date){
-//        GregorianCalendar calendar = new GregorianCalendar();
-//        calendar.setGregorianChange(date);
-//        calendar.add(Calendar.DATE, -1);
-//        return calendar.getTime();
-//    }
 
     public Date getPreviousDay(Date date) {
         final Instant previous = date.toInstant().minus(1, ChronoUnit.DAYS);
@@ -46,14 +39,7 @@ public class DateService {
         return Date.from(previous);
     }
 
-//    public Date getNextDay(Date date){
-//        GregorianCalendar calendar = new GregorianCalendar();
-//        calendar.setGregorianChange(date);
-//        calendar.add(Calendar.DATE, +1);
-//        return calendar.getTime();
-//    }
-
-    public Date getStartOfDay(Date date) {
+    Date getStartOfDay(Date date) {
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -63,7 +49,7 @@ public class DateService {
         return calendar.getTime();
     }
 
-    public Date getEndOfDay(Date date) {
+    Date getEndOfDay(Date date) {
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 23);
